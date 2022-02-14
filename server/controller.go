@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	connPort = ":8080"
+	connPort = ":8085"
 	connType = "tcp"
 )
 func pingpong(conn net.Conn, victim string) {
