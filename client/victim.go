@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	connPort = ":8080"
+	connPort = ":8085"
 	connType = "tcp"
 )
 
