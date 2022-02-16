@@ -5,14 +5,15 @@ import (
 	"fmt"
 	"net"
 	"os"
-	"strings"
 	"strconv"
+	"strings"
 )
 
 const (
 	connPort = ":8080"
 	connType = "tcp"
 )
+
 func pingpong(conn net.Conn, victim string) {
 	fmt.Fprintf(conn, "PONG "+victim+"\n")
 }
@@ -84,7 +85,7 @@ func main() {
 				continue
 			}
 			connAddress = command[1] + connPort
-			count,_ := strconv.Atoi(command[2])
+			count, _ := strconv.Atoi(command[2])
 			fmt.Println("Connecting to: " + connAddress)
 			conn, err := net.Dial(connType, connAddress)
 			if err != nil {
@@ -92,7 +93,7 @@ func main() {
 				continue
 			}
 			fmt.Println("Connection Successful")
-			flood(conn,count)
+			flood(conn, count)
 		} else if command[0] == "pingpong" {
 			if len(command) <= 2 {
 				fmt.Println("Please enter two IPs")
@@ -107,7 +108,7 @@ func main() {
 				continue
 			}
 			fmt.Println("Connection Successful")
-			pingpong(conn,conn2)
-		}	
+			pingpong(conn, conn2)
+		}
 	}
 }
